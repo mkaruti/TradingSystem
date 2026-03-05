@@ -46,4 +46,6 @@ packages/
 # Angular spezifisch (falls verwendet)
 node_modules/
 dist/
+# Mac-spezifische Dateien
+.DS_Store
 
