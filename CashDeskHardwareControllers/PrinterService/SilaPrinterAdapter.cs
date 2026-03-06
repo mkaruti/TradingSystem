@@ -1,5 +1,4 @@
-﻿
-using Domain.CashDesk;
+﻿using Domain.CashDesk;
 
 
 namespace CashDeskHardwareControllers.PrinterService;
@@ -15,6 +14,6 @@ public class SilaPrinterAdapter : IPrinterController
     }
     public void Print(string content)
     {
-        throw new NotImplementedException();
+        _printingService.PrintLine(content);
     }
 }

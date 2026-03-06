@@ -1,5 +1,4 @@
-﻿
-namespace CashDeskHardwareControllers.DisplayService;
+﻿namespace CashDeskHardwareControllers.DisplayService;
 
 public class SilaDisplayAdapter : Domain.CashDesk.IDisplayController
 {
@@ -13,6 +12,6 @@ public class SilaDisplayAdapter : Domain.CashDesk.IDisplayController
     
     public void DisplayText(string displayText)
     {
-        throw new NotImplementedException();
+        _displayService.SetDisplayText(displayText);
     }
 }
