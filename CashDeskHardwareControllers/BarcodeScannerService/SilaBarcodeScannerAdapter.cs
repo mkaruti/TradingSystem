@@ -11,8 +11,7 @@ public class SilaBarcodeScannerAdapter : IBarcodeScannerController
     
     public event EventHandler<string>? BarcodeScanned;
     public event EventHandler<string>? BarcodeScanningFailed;
-
-
+    
     public SilaBarcodeScannerAdapter(IBarcodeScannerService barcodeScannerService)
     {
         _barcodeScannerService = barcodeScannerService;
@@ -20,30 +19,40 @@ public class SilaBarcodeScannerAdapter : IBarcodeScannerController
 
     public void StartListeningToBarcodes()
     {
-        if( _barcodeStream != null)
-        {
-            throw new InvalidOperationException("Already listening to barcodes.");
-        }
-        _barcodeStream = _barcodeScannerService.ListenToBarcodes();
+       if( _barcodeStream != null)
+       {
+           throw new InvalidOperationException("Already listening to barcodes.");
+       }
        
-        Task.Run(async () =>
-        {
-            try
-            {
+       try
+       {
+           _barcodeStream = _barcodeScannerService.ListenToBarcodes();
+       }
+       catch (Exception ex)
+       {
+           Console.WriteLine($"Error while listening to barcodes: {ex.Message}");
+           BarcodeScanningFailed?.Invoke(this, ex.Message); 
+           return;
+       }
+       
+         Task.Run(async () =>
+         {
+              try
+              {
                 while (await _barcodeStream.IntermediateValues.WaitToReadAsync())
                 {
-                    if (_barcodeStream.IntermediateValues.TryRead(out var barcode))
-                    {
-                        BarcodeScanned?.Invoke(this, barcode);
-                    }
+                     if (_barcodeStream.IntermediateValues.TryRead(out var barcode))
+                     {
+                          BarcodeScanned?.Invoke(this, barcode);
+                     }
                 }
-            }
-            catch (Exception ex)
-            {
+              }
+              catch (Exception ex)
+              {
                 Console.WriteLine($"Error while listening to barcodes: {ex.Message}");
                 BarcodeScanningFailed?.Invoke(this, ex.Message);
-            }
-        });
+              }
+         }); 
     }
 
     public void StopListeningToBarcodes()
@@ -55,4 +64,4 @@ public class SilaBarcodeScannerAdapter : IBarcodeScannerController
         _barcodeStream.Cancel();
         _barcodeStream = null;
     }
-}
+}   
