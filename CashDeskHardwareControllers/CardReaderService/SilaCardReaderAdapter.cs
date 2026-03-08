@@ -7,6 +7,7 @@ public class SilaCardReaderAdapter : ICardReaderController
     private readonly ICardReaderService _cardReaderService;
     
     public SilaCardReaderAdapter(ICardReaderService cardReaderService)
+    
     {
         _cardReaderService = cardReaderService;
     }
