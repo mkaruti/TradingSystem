@@ -1,4 +1,5 @@
-﻿using Domain.CashDesk;
+﻿using CashDesk.Integration.Bank;
+using Domain.CashDesk;
 
 namespace CashDeskHardwareControllers.CardReaderService;
 
@@ -11,7 +12,7 @@ public class SilaCardReaderAdapter : ICardReaderController
     {
         _cardReaderService = cardReaderService;
     }
-    public async Task<OperationResult<CardAuthorization>> WaitForCardReadAsync(int amount, byte[] challenge)
+    public async Task<ICardReaderResult> WaitForCardReadAsync(int amount, byte[] challenge)
     {
         try
         {
@@ -25,17 +26,17 @@ public class SilaCardReaderAdapter : ICardReaderController
                 (int)authorizationData.Amount
             );
 
-            return OperationResult<CardAuthorization>.Success(cardAuthorization);
+            return cardAuthorization;
         }
         catch (TaskCanceledException)
         {
             Console.WriteLine("Card reading operation was canceled.");
-            return OperationResult<CardAuthorization>.Canceled();
+            throw;
         }
         catch (Exception ex)
         {
             Console.WriteLine("Error during card reading: " + ex.Message);
-            return OperationResult<CardAuthorization>.Failure(ex.Message);
+            throw;
         }
     }
 

@@ -7,13 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Domain\Domain.csproj" />
-      <ProjectReference Include="..\Enterprise.Integration\Enterprise.Integration.csproj" />
-      <ProjectReference Include="..\Shared.Contracts\Shared.Contracts.csproj" />
+        <ProjectReference Include="..\Domain\Domain.csproj" />
+        <ProjectReference Include="..\Shared.Contracts\Shared.Contracts.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Stateless" Version="5.20.1" />
+        <PackageReference Include="Stateless" Version="5.17.0" />
     </ItemGroup>
 
 </Project>
