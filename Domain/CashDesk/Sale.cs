@@ -3,7 +3,7 @@ namespace Domain.CashDesk;
 public class Sale
 {
     public List<SaleItem> Items { get; private set; }
-    public int Total { get; private set; }
+    public long Total { get; private set; }
     
     public Sale()
     {
