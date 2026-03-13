@@ -17,7 +17,7 @@ public class SilaCardReaderAdapter : ICardReaderController
         try
         {
             var authorizationCommand = _cardReaderService.Authorize(amount, new MemoryStream(challenge));
-            
+
             var authorizationData = await authorizationCommand.Response;
 
             var cardAuthorization = new CardAuthorization(
@@ -28,14 +28,9 @@ public class SilaCardReaderAdapter : ICardReaderController
 
             return cardAuthorization;
         }
-        catch (TaskCanceledException)
-        {
-            Console.WriteLine("Card reading operation was canceled.");
-            throw;
-        }
         catch (Exception ex)
         {
-            Console.WriteLine("Error during card reading: " + ex.Message);
+            Console.WriteLine("Error during card reading: " + ex.Message + " " + ex.GetType());
             throw;
         }
     }
