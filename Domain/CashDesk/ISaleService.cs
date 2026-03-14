@@ -2,7 +2,7 @@ namespace Domain.CashDesk;
 
 public interface ISaleService
 {
-    Sale? Sale { get; }
+    Sale Sale { get; }
     void StartSale();
     Task AddProductToSale(string barcode); 
     long GetSaleTotal();
