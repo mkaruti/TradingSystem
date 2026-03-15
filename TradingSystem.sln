@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashDeskHardwareControllers
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashDesk.Infrastructure", "CashDesk.Infrastructure\CashDesk.Infrastructure.csproj", "{868BEAF7-FC5C-4006-9008-86239D1E9266}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Store.Angular", "Store.Angular\Store.Angular.esproj", "{BAD8FE51-0DBF-4B50-AFF3-ED579B1E0255}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -126,5 +128,9 @@ Global
 		{868BEAF7-FC5C-4006-9008-86239D1E9266}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{868BEAF7-FC5C-4006-9008-86239D1E9266}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{868BEAF7-FC5C-4006-9008-86239D1E9266}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAD8FE51-0DBF-4B50-AFF3-ED579B1E0255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAD8FE51-0DBF-4B50-AFF3-ED579B1E0255}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAD8FE51-0DBF-4B50-AFF3-ED579B1E0255}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAD8FE51-0DBF-4B50-AFF3-ED579B1E0255}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal
