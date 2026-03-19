@@ -1,6 +1,6 @@
 namespace Domain.Enterprise;
 
-public class Enterprise
+public class EnterpriseContext
 {
     
 }
