@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Domain.StoreSystem;
-using Microsoft.Extensions.Hosting;
+using Store.Grpc.Services;
 
+
+namespace Store.WebApi;
 public class Startup
 {
     public Startup(IConfiguration configuration)
@@ -20,6 +18,7 @@ public class Startup
         services.AddControllers();
         services.AddDbContext<StoreContext>(options =>
             options.UseInMemoryDatabase("StoreSystem"));
+        services.AddGrpc();
     }
     
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -43,7 +42,8 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapControllers();
+            endpoints.MapControllers(); 
+            endpoints.MapGrpcService<ProductService>();
         });
     }
 }
