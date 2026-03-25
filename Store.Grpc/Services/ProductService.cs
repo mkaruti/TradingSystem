@@ -6,50 +6,54 @@ namespace Store.Grpc.Services
 {
     public class ProductService : Product.ProductBase
     {
-        private readonly IStockItemRepository _stockItemRepository;
+            private readonly IStockItemRepository _stockItemRepository;
 
-        public ProductService(IStockItemRepository stockItemRepository)
-        {
-            _stockItemRepository = stockItemRepository;
-        }
-        public override async Task<ProductResponse> GetProductInfo(ProductRequest request, ServerCallContext context)
-        {
-            var product = await _stockItemRepository.GetByBarcodeAsync(request.Barcode);
-                
-            if (product == null)
+            public ProductService(IStockItemRepository stockItemRepository)
             {
-                throw new RpcException(new Status(StatusCode.NotFound, "Product not found"));
+                _stockItemRepository = stockItemRepository;
             }
-                
-
-            return new ProductResponse
-            {
-                Name = product.Name,
-                Barcode = product.Barcode,
-                Price = product.SalesPrice,
-            };
-        }
             
-        public override async Task<UpdateInventoryResponse> UpdateInventory(UpdateInventoryRequest request, ServerCallContext context)
-        {
-
-            foreach (var item in request.Items)
+            // Todo: Use CachedProduct instead of StockItem 
+            // currently StockItem contains the barcode which will be removed in the future because barcode is global
+            // and should be stored in the enterprise server
+            public override async Task<ProductResponse> GetProductInfo(ProductRequest request, ServerCallContext context)
             {
-                var product = await _stockItemRepository.GetByBarcodeAsync(item.Barcode);
-
+                var product = await _stockItemRepository.GetByBarcodeAsync(request.Barcode);
+                
                 if (product == null)
                 {
                     throw new RpcException(new Status(StatusCode.NotFound, "Product not found"));
                 }
+                
 
-                product.AvailableQuantity -=  item.Quantity;
-                await _stockItemRepository.UpdateAsync(product);
+                return new ProductResponse
+                {
+                    Name = product.Name,
+                    Barcode = product.Barcode,
+                    Price = product.SalesPrice,
+                };
             }
-
-            return new UpdateInventoryResponse
+            
+            public override async Task<UpdateInventoryResponse> UpdateInventory(UpdateInventoryRequest request, ServerCallContext context)
             {
-                Success = true
-            };
+
+                foreach (var item in request.Items)
+                {
+                    var product = await _stockItemRepository.GetByBarcodeAsync(item.Barcode);
+
+                    if (product == null)
+                    {
+                        throw new RpcException(new Status(StatusCode.NotFound, "Product not found"));
+                    }
+
+                    product.AvailableQuantity -=  item.Quantity;
+                    await _stockItemRepository.UpdateAsync(product);
+                }
+
+                return new UpdateInventoryResponse
+                {
+                    Success = true
+                };
+            }
         }
-    }
 }
