@@ -1,6 +1,6 @@
 namespace Shared.Contracts.Dtos;
 
-public class StoreDto
+public class OrderSupplierDto
 {
     
 }
