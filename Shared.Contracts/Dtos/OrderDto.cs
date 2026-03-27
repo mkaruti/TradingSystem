@@ -2,6 +2,6 @@ namespace Shared.Contracts.Dtos;
 
 public class OrderDto
 {
-    public Guid StoreId { get; set; }
-    public List<OrderItemDto> OrderItems { get; set; }
+    public Guid? Id { get; set; }
+    List<OrderSupplierDto> OrderSupplier { get; set; }
 }
