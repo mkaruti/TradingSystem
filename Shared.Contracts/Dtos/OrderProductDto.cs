@@ -2,6 +2,6 @@ namespace Shared.Contracts.Dtos;
 
 public class OrderProductDto
 {
-    public Guid ProductId { get; set; }
+    public Guid CachedProductId { get; set; }
     public int Quantity { get; set; }
 }
