@@ -1,5 +1,5 @@
-export class OrderSupplierProducts {
-  cachedProductId?: string;
-  cachedProductName?: string;
+export class OrderSupplierProduct {
+  cachedProductId?: number;
+  cachedProductName?: number;
   quantity?: number;
 }
