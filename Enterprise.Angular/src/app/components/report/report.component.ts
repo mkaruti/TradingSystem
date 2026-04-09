@@ -15,23 +15,21 @@ import { CommonModule } from '@angular/common';
   ]
 })
 export class ReportComponent implements OnInit {
-  enterpriseId: string = '';
   reports: SupplierDeliveryTime[] = [];
 
   constructor(private reportService: ReportService) { }
 
   ngOnInit(): void { }
 
-  loadReports(): void {
-    if (this.enterpriseId) {
-      this.reportService.showAllReports(this.enterpriseId).subscribe({
-        next: (data: any) => {
-          this.reports = data;
-        },
-        error: (error: any) => {
-          console.error('Error fetching reports', error);
-        }
-      });
-    }
+  loadReports(): void {{
+    this.reportService.showAllReports().subscribe({
+      next: (data: any) => {
+        this.reports = data;
+      },
+      error: (error: any) => {
+        console.error('Error fetching reports', error);
+      }
+    });
+  }
   }
 }
