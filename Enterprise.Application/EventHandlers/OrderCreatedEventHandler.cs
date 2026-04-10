@@ -1,11 +1,28 @@
+using Domain.Enterprise.models;
+using Enterprise.Application.Services;
 using Shared.Contracts.Events;
 
 namespace Enterprise.Application.EventHandlers;
 
 public class OrderCreatedEventHandler : IEventHandler<OrderCreatedEvent>
 {
-    public Task HandleAsync(OrderCreatedEvent @event)
+    private readonly IOrderProcessingService _orderProcessingService;
+    
+    public OrderCreatedEventHandler(IOrderProcessingService orderProcessingService)
     {
-        throw new NotImplementedException();
+        _orderProcessingService = orderProcessingService;
+    }
+    public async Task HandleAsync(OrderCreatedEvent @event)
+    {
+        var deliveryLog = new DeliveryLog()
+        {
+            OrderId = @event.OrderId,
+            OrderSupplierId = @event.OrderSupplierId,
+            SupplierId = @event.SupplierId,
+            SupplierName = @event.SupplierName ?? "unknown",
+            OrderDate = @event.OrderDate,
+            DeliveryDate = null
+        };
+        await _orderProcessingService.ProcessOrdersAsync(deliveryLog);
     }
 }
